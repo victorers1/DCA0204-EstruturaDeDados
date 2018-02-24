@@ -1,0 +1,15 @@
+INPUT(
+./release\main.o
+./release\nocandidato.o
+./release\candidato.o
+./release\listacandidato.o
+./release\TesteCandidato.o
+./release\TesteEx1.o
+./release\TesteEx2.o
+./release\TesteEx3a.o
+./release\TesteEx3b.o
+./release\TesteEx4.o
+./release\TesteEx5.o
+./release\TesteEx6.o
+./release\TesteEx7.o
+);

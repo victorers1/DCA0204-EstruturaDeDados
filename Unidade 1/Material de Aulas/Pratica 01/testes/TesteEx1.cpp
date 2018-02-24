@@ -1,7 +1,7 @@
 #include <cstring>
 #include <iostream>
-#include "Candidato.h"
-#include "NoCandidato.h"
+#include "candidato.h"
+#include "nocandidato.h"
 
 
 using namespace std;
@@ -30,7 +30,5 @@ int main(){
   cout << m->next->conteudo->toString() << endl;
   cout << "que e o ultimo no, pois m->next->next vale ";
   cout << m->next->next << endl << endl;
-
-  //  cout << m->toString() << endl;
 
 }

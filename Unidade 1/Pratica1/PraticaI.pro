@@ -4,11 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    nocandidato.cpp \
     candidato.cpp \
-    listacandidato.cpp
-
+    listacandidato.cpp \
+    nocandidatos.cpp
 HEADERS += \
-    nocandidato.h \
     candidato.h \
-    listacandidato.h
+    listacandidatos.h \
+    nocandidatos.h
