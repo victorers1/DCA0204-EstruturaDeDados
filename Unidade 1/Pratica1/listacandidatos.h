@@ -12,6 +12,7 @@ public:
     void adicioneComoHead(Candidato *c);
     int tamanho();
     string toString();
+    bool remover(string nome, string sobrenome);
 };
 
 #endif // LISTACANDIDATOS_H
