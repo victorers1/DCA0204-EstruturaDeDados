@@ -18,9 +18,10 @@ void ListaCandidatos::adicioneComoHead(Candidato *c){
     /*
      * Adiciona um Nó à frente do primeiro nó da lista
      */
+
     NoCandidatos *no = new NoCandidatos(c, NULL);
     if(head==NULL){
-        head=no;
+        head = no;
     }else{
         no->next = head;
         head = no;
@@ -45,7 +46,6 @@ string ListaCandidatos::toString(){
     while(noAtual->next != NULL){
         saida.append(noAtual->toString());
         saida.append(" -> ");
-        //cout<<"--"<<saida<<"--"<<endl;
         noAtual = noAtual->next;
     }
 
@@ -79,4 +79,22 @@ bool ListaCandidatos::remover(string nome, string sobrenome){
         }
     }
     return false;
+}
+
+void ListaCandidatos::filtrarCandidatos(int nota){
+    NoCandidatos *noAtual = head; //Nó usado para percorrer a lista
+    NoCandidatos *noRemov; //Nó que será removido
+
+    do{
+        if(noAtual->conteudo->nota < nota){
+            noRemov = noAtual;
+            noAtual = noAtual->next;
+            remover(noRemov->conteudo->nome, noRemov->conteudo->sobrenome);
+        } else {
+            noAtual = noAtual->next;
+        }
+
+
+
+    } while(noAtual->next != NULL);
 }
