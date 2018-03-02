@@ -98,3 +98,10 @@ void ListaCandidatos::filtrarCandidatos(int nota){
         }
     } while(noAtual!= NULL);
 }
+
+
+void concatena(ListaCandidatos *l){
+    NoCandidatos *no = head;
+    while(no->next != NULL) no = no->next;
+    no->next = l->head;
+}
