@@ -19,13 +19,8 @@ void ListaCandidatos::adicioneComoHead(Candidato *c){
      * Adiciona um Nó à frente do primeiro nó da lista
      */
 
-    NoCandidatos *no = new NoCandidatos(c, NULL);
-    if(head==NULL){
-        head = no;
-    }else{
-        no->next = head;
-        head = no;
-    }
+    NoCandidatos *no = new NoCandidatos(c, head);
+    head = no;
 }
 
 int ListaCandidatos::tamanho(){
@@ -34,32 +29,36 @@ int ListaCandidatos::tamanho(){
     NoCandidatos *noAtual = head;
     int conta=0;
     do{
-        noAtual = noAtual->next;
         conta++;
+        noAtual = noAtual->next;
     }while(noAtual); //para quando noAtual==NULL
-    return conta-1;
+    return conta;
 }
 
 string ListaCandidatos::toString(){
+    if(head==NULL) return "0";
+
+
     string saida = "";
     NoCandidatos *noAtual = head;
-    while(noAtual->next != NULL){
+    do{
         saida.append(noAtual->toString());
         saida.append(" -> ");
         noAtual = noAtual->next;
-    }
+    }while(noAtual != NULL);
 
     saida.append("0");
+
     return saida;
 }
 
 bool ListaCandidatos::remover(string nome, string sobrenome){
     if(estaVazia()) return false;
 
-    //checa primeiro
+    //Checa primeiro
     NoCandidatos *noAnt = head;
     if(noAnt->conteudo->igual(nome, sobrenome)){ //checa primeiro
-        tamanho()==1 ? head=NULL : head = noAnt->next;
+        tamanho()==1 ? head = NULL : head = noAnt->next;
         delete(noAnt);
         return true;
     }
@@ -67,8 +66,8 @@ bool ListaCandidatos::remover(string nome, string sobrenome){
     if(tamanho()>=2){
         NoCandidatos *noAtual = head;
         NoCandidatos *lixo;
-        //para cada nó, checa se o próximo é o procurado, por isso não verifica o primeiro
-        while(noAtual->next!=NULL){  //para no último nó sem fazer verificação
+        //Para cada nó, checa se o próximo é o procurado, por isso não verifica o primeiro
+        while(noAtual != NULL){  //Para após último nó
             if(noAtual->next->conteudo->igual(nome, sobrenome)){
                 lixo = noAtual->next; //salva endereço do nó para deletar depois
                 noAtual->next = noAtual->next->next;
@@ -82,6 +81,10 @@ bool ListaCandidatos::remover(string nome, string sobrenome){
 }
 
 void ListaCandidatos::filtrarCandidatos(int nota){
+    /*
+     * Recebe um inteiro que representa a nota de corte pra continuar no concurso da petrobras
+     * O todos os candidado com this->nota menor que a variável passada por valor 'nota' será removido da lista
+     */
     NoCandidatos *noAtual = head; //Nó usado para percorrer a lista
     NoCandidatos *noRemov; //Nó que será removido
 
@@ -93,8 +96,5 @@ void ListaCandidatos::filtrarCandidatos(int nota){
         } else {
             noAtual = noAtual->next;
         }
-
-
-
-    } while(noAtual->next != NULL);
+    } while(noAtual!= NULL);
 }

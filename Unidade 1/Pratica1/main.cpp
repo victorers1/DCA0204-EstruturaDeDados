@@ -14,35 +14,28 @@ int main(){ //copie e cole aqui os códigos de teste dados pelo professor
       lista->adicioneComoHead(new Candidato("FONFEC Sophie 0"));
       cout<<"lista: "<<lista->toString()<<endl;
 
-      lista->adicioneComoHead(new Candidato("AMARAL Guillherme 5"));
+      lista->adicioneComoHead(new Candidato("MUNDO ola 5"));
       cout<<"lista: "<<lista->toString()<<endl;
 
-      lista->adicioneComoHead(new Candidato("MOURA batata 10"));
+      lista->adicioneComoHead(new Candidato("CENOURA batata 10"));
       cout<<"lista: "<<lista->toString()<<endl;
 
-      lista->adicioneComoHead(new Candidato("DOUGLAS paolo 20"));
+      lista->adicioneComoHead(new Candidato("DOUG paolo 20"));
       cout<<"lista: "<<lista->toString()<<endl;
 
-      lista->adicioneComoHead(new Candidato("CRISTO deon 50"));
+      lista->adicioneComoHead(new Candidato("CHRIS neon 50"));
       cout<<"lista: "<<lista->toString()<<endl;
 
-      lista->adicioneComoHead(new Candidato("KELVIN lucas 70"));
+      lista->adicioneComoHead(new Candidato("KELVIN ceusius 70"));
       cout<<"lista: "<<lista->toString()<<endl;
 
-      lista->adicioneComoHead(new Candidato("BENGALA Victor 100"));
+      lista->adicioneComoHead(new Candidato("EMANUEL Victor 100"));
       cout<<"lista: "<<lista->toString()<<endl;
       cout<<"tamanho = "<<lista->tamanho()<<endl;
 
       cout<<"Antes de remover:\n"<<lista->toString()<<endl;
 
-      lista->filtrarCandidatos(50);
-
-      /*
-      lista->remover("batata", "MOURA"); //remove um do meio
-      lista->remover("Victor", "BENGALA"); //remove do início
-      lista->remover("Guillherme", "AMARAL"); //remove do fim
-      lista->remover("ola", "MUNDO"); //inexistente
-      */
+      lista->filtrarCandidatos(50); //exclui todo os candidatos com nota menor que 50
 
       cout<<"Apos filtrar:"<<endl;
       cout<<lista->toString()<<endl;
