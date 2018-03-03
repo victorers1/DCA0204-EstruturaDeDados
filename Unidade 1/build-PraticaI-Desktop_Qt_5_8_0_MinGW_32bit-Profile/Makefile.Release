@@ -106,8 +106,8 @@ compiler_clean:
 
 ####### Compile
 
-release/main.o: ../Pratica1/main.cpp ../Pratica1/candidato.h \
-		../Pratica1/nocandidatos.h \
+release/main.o: ../Pratica1/main.cpp ../Pratica1/nocandidatos.h \
+		../Pratica1/candidato.h \
 		../Pratica1/listacandidatos.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\main.o ..\Pratica1\main.cpp
 
