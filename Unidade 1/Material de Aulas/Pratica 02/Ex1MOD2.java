@@ -1,13 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Victor Emanuel
- */
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -15,20 +5,11 @@ import java.util.ListIterator;
 class Mergesort {
 
     static void split(LinkedList<Integer> l, LinkedList<Integer> l1, LinkedList<Integer> l2) {
-        int meio = l.size()/2, i;
-        
-        for(i=0; i<meio; i++)
+        int meio = l.size()/2;
+        for(int i=0; i<=meio; i++){
             l1.add(l.get(i));
-        
-        for(int j=i; j<l.size(); j++)
-            l2.add(l.get(j));
-
-        /*
-        for(int k=0; k<meio; k++){
-            l1.add(l.get(k));
-            l2.add(l.get(meio+k));
+            l2.add(l.get(meio+1+i));
         }
-        */
         //l1 = l.subList(0, meio);
         //l2 = l.subList(meio+1, l.size());
     }
@@ -71,13 +52,12 @@ class Mergesort {
             mergesort(l2);
             
             return merge(l1,l2);
-        } else {
-            return l;
         }
+        return null;
     }
 }
 
-// A classe Ex1 √© fornecida fournie, para testar o c√≥digo de Mergesort
+// A classe Ex1 È fornecida fournie, para testar o cÛdigo de Mergesort
 public class Ex1 {
 
     static boolean is_sorted(LinkedList<Integer> l) {
@@ -90,7 +70,7 @@ public class Ex1 {
         return true;
     }
 
-    static final int M = 10; // os elementos est√£o entre 0..M-1
+    static final int M = 10; // os elementos est„o entre 0..M-1
 
     static int[] occurrences(LinkedList<Integer> l) {
         int[] occ = new int[M];
@@ -130,7 +110,7 @@ public class Ex1 {
     }
 
     static LinkedList<Integer> random_list(int len) {
-        LinkedList<Integer> l = new LinkedList<>();
+        LinkedList<Integer> l = new LinkedList<Integer>();
         for (int i = 0; i < len; i++)
             l.add((int) (M * Math.random()));
         return l;
@@ -142,7 +122,7 @@ public class Ex1 {
             LinkedList<Integer> l = random_list(len);
             System.out.println("         l = " + l);
             int occ[] = occurrences(l);
-            LinkedList<Integer> l1 = new LinkedList<>(), l2 = new LinkedList<>();
+            LinkedList<Integer> l1 = new LinkedList<Integer>(), l2 = new LinkedList<Integer>();
             Mergesort.split(l, l1, l2);
             int[] new_occ = occurrences(l);
             for (int i = 0; i < M; i++)
@@ -161,7 +141,7 @@ public class Ex1 {
         }
         System.out.println("teste de merge");
         for (int len = 0; len < 5; len++) {
-            LinkedList<Integer> l1 = new LinkedList<>(), l2 = new LinkedList<>();
+            LinkedList<Integer> l1 = new LinkedList<Integer>(), l2 = new LinkedList<Integer>();
             for (int i = 0; i < len; i++) {
                 l1.add(2 * i);
                 l2.add(2 * i + 1);
