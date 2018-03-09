@@ -107,16 +107,9 @@ void ListaCandidatos::filtrarCandidatos(int nota){
     } while(noAtual!= NULL);
 }
 
-<<<<<<< HEAD:Unidade 1/Pratica1/listacandidato.cpp
 void ListaCandidatos::concatena(ListaCandidatos *l){
     NoCandidatos *no = head;
     while(no->next != NULL) no = no->next;
 
-=======
-
-void concatena(ListaCandidatos *l){
-    NoCandidatos *no = head;
-    while(no->next != NULL) no = no->next;
->>>>>>> 5dc875e1e17e37c847c8f688197f968c6629ad95:Unidade 1/Pratica1/listacandidatos.cpp
     no->next = l->head;
 }
