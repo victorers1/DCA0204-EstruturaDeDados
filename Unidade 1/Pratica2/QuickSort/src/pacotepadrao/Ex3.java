@@ -11,24 +11,23 @@ package pacotepadrao;
  */
 
 class Quicksort {
-
     static void swap(int[] a, int i, int j) {
         int temp = a[i];
         a[i] = a[j];
         a[j] = temp;
     }
-
+    
     static int partition(int[] a, int l, int r) {
-        int esq = l, dir = r, tam = r-l+1; //tamanho do subvetor de 'a' sendo ordenado
+        int esq = l, dir = r; //tamanho do subvetor de 'a' sendo ordenado
         int pivo = a[l];
-        while(esq < dir){
-            while(a[esq] <= pivo && esq < tam){
+        while(esq < dir){ //enquanto 'esq' e 'dir' não se cruzaram
+            while(a[esq]<=pivo && esq<r)
                 esq++;
-            }
-            while(a[dir] > pivo && dir >0){
+            
+            while(a[dir]>pivo && dir>l)
                 dir--;
-            }
-            if(esq < dir){
+            
+            if(esq<dir){ //ponteiros não se cruzaram
                 swap(a, esq, dir);
             }
         }
@@ -39,13 +38,15 @@ class Quicksort {
     }
 
     static void quickrec(int[] a, int l, int r) {
-        // a ser completada
+        if(l < r){
+            int pivo = partition(a, l, r); //
+            quickrec(a, l, pivo-1); //aplica mesmo procedimento ao vetor à frente do pivô
+            quickrec(a, pivo+1, r); //aplica mesmo procedimento ao vetor atrás do pivô
+        }
     }
 
     static void quicksort(int[] a) {
-        if(a.length > 1){
-            
-        }
+        quickrec(a, 0, a.length);
     }
 
 }
@@ -86,7 +87,7 @@ class Ex3 {
             a[i] = (int)(M * Math.random());
         return a;
     }
-
+    
     static void test_partition(int[] a, int l, int r) {
         int v = a[l];
         System.out.println("  teste com      a = " + print(a) + " v = " + v);
@@ -122,6 +123,10 @@ class Ex3 {
     }
 
     public static void main(String[] args) {
+        //CASO BUGADO
+        int i[] = {2,4,7,5,7};
+        test_partition(i,1,4);
+        
         System.out.println("teste de partition");
         for (int len = 0; len < 10; len++)
             for (int l = 0; l < len; l++)
