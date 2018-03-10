@@ -11,7 +11,6 @@
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-// A classe Mergesort a ser completada
 class Mergesort {
 
     static void split(LinkedList<Integer> l, LinkedList<Integer> l1, LinkedList<Integer> l2) {
@@ -22,15 +21,6 @@ class Mergesort {
         
         for(int j=i; j<l.size(); j++)
             l2.add(l.get(j));
-
-        /*
-        for(int k=0; k<meio; k++){
-            l1.add(l.get(k));
-            l2.add(l.get(meio+k));
-        }
-        */
-        //l1 = l.subList(0, meio);
-        //l2 = l.subList(meio+1, l.size());
     }
 
     static LinkedList<Integer> merge(LinkedList<Integer> l1,
@@ -57,7 +47,7 @@ class Mergesort {
                 }
             }
         }
-        return temp; // a ser completada
+        return temp; 
     }
 
     static LinkedList<Integer> mergesort(LinkedList<Integer> l) {
@@ -67,8 +57,8 @@ class Mergesort {
             
             split(l, l1, l2);
             
-            mergesort(l1);
-            mergesort(l2);
+            l1 = mergesort(l1);
+            l2 = mergesort(l2);
             
             return merge(l1,l2);
         } else {

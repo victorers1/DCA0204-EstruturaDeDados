@@ -24,6 +24,8 @@ ListaCandidatos::ListaCandidatos(string nomeDoArquivo){
     cout << "criacao da lista de candidatos de: " << dados << endl;
 
     while(getline(cand, dados)){
+        getline(cand,dados); //parace que o getline acima não está removendo o ENTER, é necessário outro getline()
+        //cout<<"Dados do arquivo: "<<dados<<endl;
         adicioneComoHead(new Candidato(dados));
     }
 }
@@ -40,6 +42,7 @@ void ListaCandidatos::adicioneComoHead(Candidato *c){
      * Adiciona um Nó à frente do primeiro nó da lista
      */
 
+    //cout<<"Adicionado a lista: "<<c->toString()<<endl;
     NoCandidatos *no = new NoCandidatos(c, head);
     head = no;
 }
@@ -72,12 +75,13 @@ bool ListaCandidatos::remover(string nome, string sobrenome){
         return true;
     }
 
+    //noAtual = head;
     if(tamanho()>=2){
-        //Para cada nó, checa se o próximo é o procurado, por isso não verifica o primeiro
-        while(noAtual != NULL){  //Para após último nó
+        //Para cada nó, checa se o próximo é o procurado. Por isso não verifica o primeiro.
+        while(noAtual->next != NULL){  //Para após último nó
             if(noAtual->next->conteudo->igual(nome, sobrenome)){
                 NoCandidatos *lixo = noAtual->next; //salva endereço do nó para deletar depois
-                noAtual->next = noAtual->next->next;
+                noAtual->next = noAtual->next->next; //só dá atribuir diratemente porque os atributor são todos públicos
                 delete(lixo);
                 return true;
             }
