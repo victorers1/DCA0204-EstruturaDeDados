@@ -14,7 +14,8 @@ using namespace std;
 using __gnu_cxx::hash_set;
 //necessário para inicialização de vectors
 
-//using namespace boost::assign; 
+
+//using namespace boost::assign;
 using namespace std;
 class State {
 
@@ -81,10 +82,8 @@ class State {
 
 
 //função hash
-struct hash_state
-{
-   size_t operator()(const State* t) const
-   {
+struct hash_state{
+   size_t operator()(const State* t) const{
      int h = 0;
      
      for (int i = 0; i < t->pos.size(); i++)
@@ -95,8 +94,7 @@ struct hash_state
 };
 
 //função igualdade para hash_set
-struct eq_state
-{
+struct eq_state{
    bool operator()(const State* t1, const State* t2) const {
        
        if(t1->pos.size() != t2->pos.size()) return false;
@@ -114,10 +112,10 @@ class RushHour {
 
     /*
      * a representação do problema é :
-     * a grade tem 6 colunas, numeradas 0 a 5 de esquerda para direita
-     * e 6 linhas, numeradas de 0 a  5 de cima para baixo
+     * a grade tem 6 colunas, numeradas 0 a 5 de esquerda para direita
+     * e 6 linhas, numeradas de 0 a  5 de cima para baixo
      *
-     * existem nbcars carros, numerados de 0 a  nbcars-1
+     * existem nbcars carros, numerados de 0 a  nbcars-1
      * para cada veículo i :
      * - color[i] fornece sua cor
      * - horiz[i] indica se temos um carro na horizontal
