@@ -46,6 +46,11 @@ int main(){
 
     cout<<"\n\nTESTE 4:"<<endl;
     h->test4();
+
+    cout<<"\n\nTESTE 5:"<<endl;
+    //h->solve22();
+
+
     //cout<<"Hello World!\n";
     return 0;
 }

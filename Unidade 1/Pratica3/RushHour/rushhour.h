@@ -8,7 +8,6 @@
 #include <hash_set>
 #include "state.h"
 #include <list>
-#include <vector>
 #include <iterator>
 
 using namespace std;
@@ -69,7 +68,9 @@ class RushHour {
     void test2();
     void test3();
     void test4();
+    void solve22();
 };
+
 
 
 #endif // RUSHHOUR_H

@@ -1,6 +1,7 @@
 #include "rushhour.h"
 
 
+
 RushHour::RushHour(){
 }
 
@@ -74,12 +75,11 @@ State *RushHour::solve(State *s){
         V = moves(u); // Todos os movimentos a partir de u
 
         list<State*>::iterator v; // v representa uma variável do tipo State*
-
-        for(v = V.begin(); v == V.end(); v++){ //para cada vizinho de v ainda não listado, adicione-o na lista de listados e veja se é a solução
-            if (visited.count(*v) == 0) {
-                if((*v)->success()) {
+        for(v = V.begin(); v != V.end(); v++){
+            if (visited.count(*v) == 0){
+                if((*v)->success())
                     return *v;
-                }
+
                 Q.push(*v);
                 visited.insert(*v);
             }
@@ -87,6 +87,28 @@ State *RushHour::solve(State *s){
     }
     cerr << "sem solução" << endl; exit(1);
 }
+
+void RushHour::printSolution(State *s){
+    State *estado = s;
+    list<State*> v;
+    list<State*>::iterator it;
+
+    while(estado->prev!=NULL){
+        v.push_front(estado);
+        estado = estado->prev;
+    }
+
+    for(it = v.begin(); it!=v.end(); it++){
+        cout<<"tamanho de color: "<<color.size()<<", estado->c: "<<estado->c<<endl;
+        cout<<"veiculo "<< color[estado->c]<< " para ";
+        if(orient[estado->c]==true){ //horizontal
+            estado->d==1 ? cout<<"a direita":cout<<"a esquerda";
+        } else{ //vertical
+            estado->d==1 ? cout<<"baixo":cout<<"cima";
+        }
+    }
+}
+
 
 size_t hash_state::operator()(const State *t) const{
     int h = 0;
@@ -97,7 +119,7 @@ size_t hash_state::operator()(const State *t) const{
     return h;
 }
 
-bool eq_state::operator()(const State *t1, const State *t2) const {
+bool eq_state::operator()(const State *t1, const State *t2) const{
 
     if(t1->pos.size() != t2->pos.size()) return false;
     for(int i=0; i < t1->pos.size(); i++){
@@ -153,7 +175,7 @@ void RushHour::test3(){
     cout << n << endl;
 }
 
-void RushHour::test4() {
+void RushHour::test4(){
     nbcars = 12;
     string color1[] = {"vermelho","verde claro","amarelo","laranja",
                        "violeta claro","azul ceu","rosa","violeta","verde","preto","bege","azul"};
@@ -169,6 +191,26 @@ void RushHour::test4() {
     vector<int> start(start1,start1+nbcars);
     State* s = new State(start);
     int n = 0;
-    for (s = solve(s); s.prev != null; s = s.prev) n++;
+    for (s = solve(s); s->prev != NULL; s = s->prev)
+        n++;
     cout << n << endl;
+}
+
+void RushHour::solve22(){
+    nbcars = 12;
+    string color1[] = {"vermelho","verde claro","amarelo","laranja",
+                       "violeta claro","azul ceu","rosa","violeta","verde","preto","bege","azul"};
+    color.assign(color1, color1+nbcars);
+    bool horiz1[] = {true, false, true, false, false, true, false,
+                     true, false, true, false, true};
+    orient.assign(horiz1, horiz1+nbcars);
+    int len1[] = {2,2,3,2,3,2,2,2,2,2,2,3};
+    len.assign(len1,len1+nbcars);
+    int moveon1[] = {2,2,0,0,3,1,1,3,0,4,5,5};
+    moveon.assign(moveon1,moveon1+nbcars);
+    int start1[] = {1,0,3,1,1,4,3,4,4,2,4,1};
+    vector<int> start(start1,start1+nbcars);
+    State* s = new State(start);
+    s = solve(s);
+    printSolution(s);
 }
