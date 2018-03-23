@@ -43,6 +43,9 @@ int main(){
 
     cout<<"\n\nTESTE 3:"<<endl;
     h->test3();
+
+    cout<<"\n\nTESTE 4:"<<endl;
+    h->test4();
     //cout<<"Hello World!\n";
     return 0;
 }

@@ -9,6 +9,7 @@
 #include "state.h"
 #include <list>
 #include <vector>
+#include <iterator>
 
 using namespace std;
 using __gnu_cxx::hash_set;
@@ -67,6 +68,7 @@ class RushHour {
 
     void test2();
     void test3();
+    void test4();
 };
 
 

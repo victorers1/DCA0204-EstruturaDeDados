@@ -1,9 +1,10 @@
 #include "rushhour.h"
 
+
 RushHour::RushHour(){
 }
 
-void RushHour::initFree(State *s) {
+void RushHour::initFree(State *s){
     for (int i = 0; i < 6; i++)
         for (int j = 0; j < 6; j++)
             free[i][j] = true; // estacionamento vazio
@@ -30,10 +31,9 @@ void RushHour::initFree(State *s) {
     }
 }
 
-list<State *> RushHour::moves(State *s) {
+list<State *> RushHour::moves(State *s){
     initFree(s);
     list<State*> l;
-    // A SER COMPLETADA
 
     for(int carro=0; carro<nbcars; carro++){
         if(orient[carro]==true){ //horizontal
@@ -60,13 +60,30 @@ list<State *> RushHour::moves(State *s) {
     return l;
 }
 
-State *RushHour::solve(State *s) {
-    hash_set<State*,hash_state,eq_state> visited;
-    visited.insert(s);
+State *RushHour::solve(State *s){
+    // Objeto equivalente ao Conjunto, no Python. Guarda quais nós foram visitados
+    hash_set<State*,hash_state,eq_state> visited;// L
     queue<State*> Q;
+    State *u = new State();// estado vazio
+    list<State*> V; // lista de movimentos possíveis a partir de s
+
+    visited.insert(s); // recebe o estado inicial
     Q.push(s);
-    while (!Q.empty()) {
-        // A SER COMPLETADO
+    while (!Q.empty()){
+        u = Q.front(); Q.pop(); // Extrai primeiro da fila
+        V = moves(u); // Todos os movimentos a partir de u
+
+        list<State*>::iterator v; // v representa uma variável do tipo State*
+
+        for(v = V.begin(); v == V.end(); v++){ //para cada vizinho de v ainda não listado, adicione-o na lista de listados e veja se é a solução
+            if (visited.count(*v) == 0) {
+                if((*v)->success()) {
+                    return *v;
+                }
+                Q.push(*v);
+                visited.insert(*v);
+            }
+        }
     }
     cerr << "sem solução" << endl; exit(1);
 }
@@ -133,5 +150,25 @@ void RushHour::test3(){
     cout << n << endl;
     n = 0;
     for (list<State*> L = moves(s2); !L.empty(); n++) L.pop_front();
+    cout << n << endl;
+}
+
+void RushHour::test4() {
+    nbcars = 12;
+    string color1[] = {"vermelho","verde claro","amarelo","laranja",
+                       "violeta claro","azul ceu","rosa","violeta","verde","preto","bege","azul"};
+    color.assign(color1, color1+nbcars);
+    bool horiz1[] = {true, false, true, false, false, true, false,
+                     true, false, true, false, true};
+    orient.assign(horiz1, horiz1+nbcars);
+    int len1[] = {2,2,3,2,3,2,2,2,2,2,2,3};
+    len.assign(len1,len1+nbcars);
+    int moveon1[] = {2,2,0,0,3,1,1,3,0,4,5,5};
+    moveon.assign(moveon1,moveon1+nbcars);
+    int start1[] = {1,0,3,1,1,4,3,4,4,2,4,1};
+    vector<int> start(start1,start1+nbcars);
+    State* s = new State(start);
+    int n = 0;
+    for (s = solve(s); s.prev != null; s = s.prev) n++;
     cout << n << endl;
 }
