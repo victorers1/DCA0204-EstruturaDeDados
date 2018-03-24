@@ -101,10 +101,12 @@ compiler_clean:
 
 ####### Compile
 
-debug/main.o: ../RushHour/main.cpp 
+debug/main.o: ../RushHour/main.cpp ../RushHour/rushhour.h \
+		../RushHour/state.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o ..\RushHour\main.cpp
 
-debug/rushhour.o: ../RushHour/rushhour.cpp ../RushHour/rushhour.h
+debug/rushhour.o: ../RushHour/rushhour.cpp ../RushHour/rushhour.h \
+		../RushHour/state.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\rushhour.o ..\RushHour\rushhour.cpp
 
 debug/state.o: ../RushHour/state.cpp ../RushHour/state.h

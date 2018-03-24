@@ -1,7 +1,5 @@
 #include "rushhour.h"
 
-
-
 RushHour::RushHour(){
 }
 
@@ -90,25 +88,26 @@ State *RushHour::solve(State *s){
 
 void RushHour::printSolution(State *s){
     State *estado = s;
-    list<State*> v;
-    list<State*>::iterator it;
+    vector<State*> e;
+    vector<State*>::iterator it;
 
     while(estado->prev!=NULL){
-        v.push_front(estado);
+        e.push_back(estado);
         estado = estado->prev;
     }
+    cout<<e.size()<<" deslocamentos."<<endl;
 
-    for(it = v.begin(); it!=v.end(); it++){
-        cout<<"tamanho de color: "<<color.size()<<", estado->c: "<<estado->c<<endl;
-        cout<<"veiculo "<< color[estado->c]<< " para ";
-        if(orient[estado->c]==true){ //horizontal
-            estado->d==1 ? cout<<"a direita":cout<<"a esquerda";
-        } else{ //vertical
-            estado->d==1 ? cout<<"baixo":cout<<"cima";
+    for(it = e.end()-1; it != e.begin(); it--){
+        cout<< "Veiculo " + color[(*it)->c]+ " para ";
+        if(orient[(*it)->c]==true){ //horizontal
+            (*it)->d==1 ? cout<<"a direita": cout<<"a esquerda";
+        }else{ //vertical
+            (*it)->d==1 ? cout<<"baixo": cout<<"cima";
         }
+        cout<<endl;
     }
-}
 
+}
 
 size_t hash_state::operator()(const State *t) const{
     int h = 0;
@@ -209,6 +208,44 @@ void RushHour::solve22(){
     int moveon1[] = {2,2,0,0,3,1,1,3,0,4,5,5};
     moveon.assign(moveon1,moveon1+nbcars);
     int start1[] = {1,0,3,1,1,4,3,4,4,2,4,1};
+    vector<int> start(start1,start1+nbcars);
+    State* s = new State(start);
+    s = solve(s);
+    printSolution(s);
+}
+
+void RushHour::solve1() {
+    nbcars = 8;
+    string color1[] = {"vermelho","verde claro","violeta",
+                       "laranja","verde","azul ceu","amarelo","azul"};
+    color.assign(color1, color1+nbcars);
+    bool horiz1[] = {true, true, false, false, true,
+                     true, false, false};
+    orient.assign(horiz1, horiz1+nbcars);
+    int len1[] = {2,2,3,2,3,2,3,3};
+    len.assign(len1,len1+nbcars);
+    int moveon1[] = {2,0,0,0,5,4,5,3};
+    moveon.assign(moveon1,moveon1+nbcars);
+    int start1[] = {1,0,1,4,2,4,0,1};
+    vector<int> start(start1,start1+nbcars);
+    State* s = new State(start);
+    s = solve(s);
+    printSolution(s);
+}
+
+void RushHour::solve40() {
+    nbcars = 13;
+    string color1[] = {"vermelho","amarelo","verde claro","laranja","azul claro",
+                       "rosa","violeta claro","azul","violeta","verde","preto","bege","amarelo claro"};
+    color.assign(color1, color1+nbcars);
+    bool horiz1[] = {true, false, true, false, false, false, false,
+                     true, false, false, true, true, true};
+    orient.assign(horiz1, horiz1+nbcars);
+    int len1[] = {2,3,2,2,2,2,3,3,2,2,2,2,2};
+    len.assign(len1,len1+nbcars);
+    int moveon1[] = {2,0,0,4,1,2,5,3,3,2,4,5,5};
+    moveon.assign(moveon1,moveon1+nbcars);
+    int start1[] = {3,0,1,0,1,1,1,0,3,4,4,0,3};
     vector<int> start(start1,start1+nbcars);
     State* s = new State(start);
     s = solve(s);

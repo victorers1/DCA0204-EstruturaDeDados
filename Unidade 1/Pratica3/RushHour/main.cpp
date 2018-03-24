@@ -48,9 +48,13 @@ int main(){
     h->test4();
 
     cout<<"\n\nTESTE 5:"<<endl;
-    //h->solve22();
+    h->solve22();
 
+    cout<<"\n\nTESTE 6:"<<endl;
+    h->solve1();
 
-    //cout<<"Hello World!\n";
+    cout<<"\n\nTESTE 7:"<<endl;
+    h->solve40();
+
     return 0;
 }

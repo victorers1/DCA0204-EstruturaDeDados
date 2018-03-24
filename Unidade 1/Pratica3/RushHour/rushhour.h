@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <set>
+#include <string>
 #include <queue>
 #include <vector>
 #include <hash_set>
@@ -65,10 +66,13 @@ class RushHour {
 
     void printSolution(State* s); //imprime uma solução
 
+    //métodos testes
     void test2();
     void test3();
     void test4();
     void solve22();
+    void solve1();
+    void solve40();
 };
 
 
