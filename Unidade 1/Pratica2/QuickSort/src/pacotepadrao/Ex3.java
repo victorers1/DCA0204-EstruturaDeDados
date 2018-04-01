@@ -123,10 +123,6 @@ class Ex3 {
     }
 
     public static void main(String[] args) {
-        //CASO BUGADO
-        int i[] = {2,4,7,5,7};
-        test_partition(i,1,4);
-        
         System.out.println("teste de partition");
         for (int len = 0; len < 10; len++)
             for (int l = 0; l < len; l++)
