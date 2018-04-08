@@ -1,10 +1,12 @@
 package codigo.fonte;
 
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 /**
  *
- * @author C6-PROF
+ * @author Victor Emanuel
  * @param <T>
  */
 public class Pilha<T> {
@@ -19,11 +21,15 @@ public class Pilha<T> {
         conteudo.addFirst(dado);
     }
 
-    public T desempilha() {
+    public T desempilha() throws NoSuchElementException {
+        //a função removeFirst() retorna a exceção acima caso não haja elementos na lista
+        //por isso, não preciso chamar o throw
         return conteudo.removeFirst();
     }
 
-    public T topo() {
+    public T topo() throws NoSuchElementException {
+        //a função getFirst() retorna a exceção acima caso não haja elementos na lista
+        //por isso, não preciso chamar o throw
         return conteudo.getFirst();
     }
 
@@ -36,6 +42,18 @@ public class Pilha<T> {
         return conteudo.toString();
     }
 
+    public String toStringInverse(){
+        Iterator it = conteudo.descendingIterator();
+        
+        String str = "[";
+        while(it.hasNext()){
+            str = str + it.next().toString() + ", ";
+        }
+        str = str +"]";
+        
+        return str;
+    }
+    
     static void test1() {
         Pilha<Double> aPilha = new Pilha<>();
         aPilha.empilha(1.1);
