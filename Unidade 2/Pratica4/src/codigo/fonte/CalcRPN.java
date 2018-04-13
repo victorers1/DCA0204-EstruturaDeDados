@@ -1,6 +1,7 @@
 package codigo.fonte;
 
 /**
+ * @brief Classe que modela uma calculadora
  * @author Victor Emanuel
  */
 import java.io.*;
@@ -8,7 +9,6 @@ import static java.lang.System.exit;
 import java.util.NoSuchElementException;
 
 class CalcRPN {
-
     // variáveis da instancia :
     // uma pilha para os cálculos
     Pilha<Double> aPilha;
@@ -20,7 +20,10 @@ class CalcRPN {
         hist = new Pilha<>();
     }
 
-// Adição de dois elementos do topo da pilha
+    /**
+     * @brief Adição de dois elementos do topo da pilha.
+     * @throws Error 
+     */
     void mais() throws Error {
         try {
             Double a = aPilha.desempilha();
@@ -33,7 +36,10 @@ class CalcRPN {
         }
     }
 
-// Subtração de dois elementos do topo da pilha
+    /**
+     * @brief Subtração de dois elementos do topo da pilha.
+     * @throws Error 
+     */
     void menos() throws Error {
         try {
             Double a = aPilha.desempilha();
@@ -45,7 +51,10 @@ class CalcRPN {
         }
     }
 
-// Multiplicação de dois elementos do topo da pilha
+    /**
+     * @brief Multiplicação de dois elementos do topo da pilha.
+     * @throws Error 
+     */
     void vezes() throws Error {
         try {
             Double a = aPilha.desempilha();
@@ -57,8 +66,11 @@ class CalcRPN {
             throw new Error("Tentativa de acesso a lista vazia");
         }
     }
-
-// Divisão de dois elementos no topo da pilha
+    
+    /**
+     * @brief Divisão de dois elementos no topo da pilha.
+     * @throws Error 
+     */
     void dividido() throws Error {
         try {
             Double a = aPilha.desempilha();
@@ -70,11 +82,13 @@ class CalcRPN {
         } catch (ArithmeticException e2) {
             throw new Error("Tentativa de operação inválida");
         }
-
-        //throw new Error("a ser completado");
     }
 
-// retorna o conteudo do topo da pilha
+    /**
+     * @brief Retorna o conteudo do topo da pilha.
+     * @return Primeiro item da pilha.
+     * @throws Error 
+     */
     Double resultado() throws Error {
         try {
             return aPilha.topo();
@@ -84,7 +98,10 @@ class CalcRPN {
 
     }
 
-// interpretador de comandos
+    /**
+     * @brief Interpretador de comandos.
+     * @param cmd String com um dos comandos conhecidos a ser executado. Caso seja um número, deve apenas empilhá-lo.
+     */
     void exec(String cmd) {
         switch (cmd) {
             case "+":
@@ -153,6 +170,9 @@ class CalcRPN {
         }
     }
 
+    /**
+     * @brief Desfaz a última ação feita pelo usuário. Desempilha um número ou desfaz a operação aritmética.
+     */
     void cancela() {
         try {
             if (hist.topo().code.equals('e')) {
@@ -171,6 +191,9 @@ class CalcRPN {
         }
     }
 
+    /**
+     * @brief Testa as operações básicas da calculadora.
+     */
     static void test() {
         CalcRPN calc = new CalcRPN();
         System.out.print("3 2 + = ");
@@ -212,6 +235,10 @@ class CalcRPN {
         System.out.println(calc.resultado());
     }
 
+    /**
+     * @brief Cria uma console no qual o usuário pode inserir os comandos reconhecíveis pela calculadora.
+     * @throws IOException 
+     */
     static void interfaceUsuario() throws IOException {
         CalcRPN calc = new CalcRPN();
         String line;
@@ -232,5 +259,6 @@ class CalcRPN {
     public static void main(String[] args) throws IOException {
         test();
         interfaceUsuario();
+        exit(0);
     }
 }

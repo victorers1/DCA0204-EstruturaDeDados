@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 /**
- *
+ * @brief Classe que implementa uma pilha simples a partir da classe LinkedList nativa do Java.
  * @author Victor Emanuel
  * @param <T>
  */
@@ -20,19 +20,30 @@ public class Pilha<T> {
     public void empilha(T dado) {
         conteudo.addFirst(dado);
     }
-
+    
+    /**
+     * @brief Remove primeiro elemento da pilha
+     * OBS.: A função removeFirst() retorna a exceção NoSuchElementException caso não haja elementos na lista. Por isso, não preciso usar throw nesse escopo
+     * @return item removido da pilha
+     * @throws NoSuchElementException
+     */
     public T desempilha() throws NoSuchElementException {
-        //a função removeFirst() retorna a exceção acima caso não haja elementos na lista
-        //por isso, não preciso chamar o throw
         return conteudo.removeFirst();
     }
 
+    /**
+     * @brief Olha qual o primro elemento da pilha
+     * OBS.: A função getFirst() retorna a exceção acima caso não haja elementos na lista. Por isso, não preciso chamar o throw
+     * @return O primeiro elemento da pilha
+     * @throws NoSuchElementException 
+     */
     public T topo() throws NoSuchElementException {
-        //a função getFirst() retorna a exceção acima caso não haja elementos na lista
-        //por isso, não preciso chamar o throw
         return conteudo.getFirst();
     }
 
+    /**
+     * @brief Remove primeiro elemento da pilha
+     */
     public void clear() {
         conteudo.clear();
     }
@@ -42,6 +53,10 @@ public class Pilha<T> {
         return conteudo.toString();
     }
 
+    /**
+     * @brief Imprime todo conteúdo da pilha na ordem inversa
+     * @return String com a representação em String de cada elemento da pilha em ordem inversa
+     */
     public String toStringInverse(){
         Iterator it = conteudo.descendingIterator();
         
@@ -54,6 +69,9 @@ public class Pilha<T> {
         return str;
     }
     
+    /**
+     * @brief Testa a função empilha, topo e desempilha
+     */
     static void test1() {
         Pilha<Double> aPilha = new Pilha<>();
         aPilha.empilha(1.1);
@@ -76,6 +94,9 @@ public class Pilha<T> {
         System.out.println("topo pilha = " + valor);
     }
 
+    /**
+     * @brief Testa a representação em String da pilha
+     */
     static void test2() {
         Pilha<Double> aPilha = new Pilha<>();
         System.out.println(aPilha);

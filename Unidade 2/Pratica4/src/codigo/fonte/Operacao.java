@@ -1,7 +1,7 @@
 package codigo.fonte;
 
 /**
- *
+ * @brief Classe que modela um operação válida na calculadora criada neste projeto: empilhamento ou operação aritmética.
  * @author Victor Emanuel
  */
 public class Operacao {
@@ -40,8 +40,8 @@ public class Operacao {
         op[6] = new Operacao('-', 4.0, 3.0);
         op[7] = new Operacao('*', 8.0, 1.0);
         op[8] = new Operacao('/', 16.0, 8.0);
-        for (int i = 0; i < op.length; i++) {
-            System.out.print(op[i] + " ");
+        for (Operacao op1 : op) {
+            System.out.print(op1 + " ");
         }
         System.out.println();
     }
