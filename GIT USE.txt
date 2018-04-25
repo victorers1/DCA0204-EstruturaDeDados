@@ -1,0 +1,14 @@
+Fazer commit:  			       git commit -m "Descrição"
+Checar situação do projeto:	       git status
+Checar commits:			       gis log
+Associar repositório local com remoto: git remote add nomeDadoNaCriação(origin) <link HTTP do Github>
+Ver repositório remoto:                git remote -v
+Puxar de repositório remoto: 	       git pull
+Upar para repositório remoto: 	       git push -u nomeDadoNaCriação(origin) Ramo
+Clonar repositório online:	       git clone <link HTTP do Github>
+Criar ramos:			       git branch NomeDoRamo
+Mudar de ramo:			       git checkout nomeDoRamo
+Mesclar ramo (com o dado):   	       git merge NomeDoRamo
+Remover git de uma pasta:	       rm -rf .git
+Lembrar usuário e senha:	       git config credential.helper store
+Lembrar usuário e senha por um tempo:  git config --global credential.helper 'cache --timeout=3600'

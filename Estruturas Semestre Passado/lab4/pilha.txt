@@ -1,0 +1,38 @@
+public class Pilha<T>{
+
+	private LinkedList<T> p;
+	
+	public Pilha(){
+		p = new LinkedList<>(); 
+	}
+
+	void empilha(T x){
+		p.addFirst(x);
+	}
+	
+	T desempilha(){
+		if(!p.isEmpty()){
+			return p.removeFirst();
+		} else{
+			trow new Error("");
+		}
+	}
+	
+	T topo(){
+		if(!p.isEmpty()){
+			return p.getFirst();
+		} else{
+			trow new Error("");
+		}
+	}
+	
+	boolean estaVazia(){
+		return p.isEmpty();
+	}
+	
+	@override 
+	public String toString(){
+		return p.toString();
+	}
+
+}
