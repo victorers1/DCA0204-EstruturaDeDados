@@ -1,16 +1,16 @@
 package fonte;
 
 /**
- *
  * @author Victor Emanuel
+ * @since 30/4/2018
  */
 public class FenwickTree {
 
     /**
-     * Vari·veis. 
-     * value contÈm: Para uma folha, o valor a que ela se refere. Para um nÛ, a soma dos valores das folhas abaixo dele. 
-     * leftsize contÈm: Para uma folha, o valor 0. Para um nÛ, o n˙mero de folhas na sub-·rvore esquerda. 
-     * left e right contÈm: Para uma folha, null. Para um nÛ, ponteiros para as sub-·rvores esquerda e direita, respectivamente.
+     * Vari√°veis. 
+     * value cont√©m: Para uma folha, o valor a que ela se refere; Para um n√≥, a soma dos valores das folhas abaixo dele. 
+     * leftsize cont√©m: Para uma folha, o valor 0; Para um n√≥, o n√∫mero de folhas na sub-√°rvore esquerda. 
+     * left e right cont√©m: Para uma folha, null; Para um n√≥, ponteiros para as sub-√°rvores esquerda e direita, respectivamente.
      */
     public int value;
     public int leftsize;
@@ -33,7 +33,7 @@ public class FenwickTree {
 
     @Override
     /**
-     * CÛdigo feito fazendo v·rios teste cabulosos
+     * C√≥digo feito fazendo v√°rios teste cabulosos
      */
     public String toString() {
         String s = "[";
@@ -54,18 +54,29 @@ public class FenwickTree {
     
     
     int size() {
-    	
-    	
-    	return 0; //TODO
+    	if(right==null){
+            return leftsize+1; //Deve somar mais um para contabilizar o pr√≥prio n√≥ mais a direita
+        } else{
+            return leftsize + right.size();
+        }
     }
 
     public void increment(int i, int delta) {
-        value += delta; // Incrementa j· na descida
-        if (leftsize > i) {
+        value += delta; // Incrementa j√° na descida
+        if (leftsize > i && left!=null) {
             left.increment(i, delta);
-        } else {
+        } else if(leftsize > i && right!=null){
             right.increment(i - leftsize, delta);
         }
+        
+        /**Primeira vers√£o do c√≥digo (ERRADA):
+         * value += delta;
+           if (leftsize > i) {
+                left.increment(i, delta);
+            } else {
+                right.increment(i - leftsize, delta);
+            }
+         */
     }
 
     static FenwickTree allZeros(int n) {
@@ -88,9 +99,16 @@ public class FenwickTree {
                   new FenwickTree(1, new FenwickTree(6), new FenwickTree(1)))));
     }
     
-   public static void test3() {
+
+    public static void test2() {
+        System.out.println("Construcao de allZeros(3) : " + FenwickTree.allZeros(3));
+        System.out.println("Construcao de allZeros(4) : " + FenwickTree.allZeros(4));
+        System.out.println("Construcao de allZeros(5) : " + FenwickTree.allZeros(5));
+        System.out.println("Construcao de allZeros(6) : " + FenwickTree.allZeros(6));
+    }
+    
+    public static void test3() {
 	// teste de correcao
-	   System.out.println("Verificacao de correcao da funcao...");
 	   System.out.println("Tamanho de FenwickTree(6) : "
 	   + (new FenwickTree(6)).size());
 	   System.out.println("Tamanho de allZeros(6) : "
@@ -101,15 +119,30 @@ public class FenwickTree {
 	   new FenwickTree(1, new FenwickTree(2), new FenwickTree(5))),
 	   new FenwickTree(1, new FenwickTree(3),
 	   new FenwickTree(1, new FenwickTree(6), new FenwickTree(1))));
-	   System.out.println("Arvore this : " + T1);
+	   System.out.println("√Årvore this : " + T1);
 	   System.out.println("Tamanho de this : " + T1.size());
    }
 
-    public static void test2() {
-        System.out.println("Construcao de allZeros(3) : " + FenwickTree.allZeros(3));
-        System.out.println("Construcao de allZeros(4) : " + FenwickTree.allZeros(4));
-        System.out.println("Construcao de allZeros(5) : " + FenwickTree.allZeros(5));
-        System.out.println("Construcao de allZeros(6) : " + FenwickTree.allZeros(6));
+    public static void test4() {
+        // teste de correcao
+        FenwickTree T = new FenwickTree(3,
+                new FenwickTree(1, new FenwickTree(0),
+                        new FenwickTree(1, new FenwickTree(0), new FenwickTree(0))),
+                new FenwickTree(1, new FenwickTree(0),
+                        new FenwickTree(1, new FenwickTree(0), new FenwickTree(0))));
+        System.out.println("Arvore this : " + T);
+        T.increment(0, 4);
+        System.out.println("Resultado de increment(0, 4) : " + T);
+        T.increment(1, 2);
+        System.out.println("Resultado de increment(1, 2) : " + T);
+        T.increment(2, 5);
+        System.out.println("Resultado de increment(2, 5) : " + T);
+        T.increment(3, 3);
+        System.out.println("Resultado de increment(3, 3) : " + T);
+        T.increment(4, 6);
+        System.out.println("Resultado de increment(4, 6) : " + T);
+        T.increment(5, 1);
+        System.out.println("Resultado de increment(5, 1) : " + T);
     }
 
     public static void main(String[] args) {
@@ -117,6 +150,11 @@ public class FenwickTree {
         test1();
         System.out.println("###TESTE 2###");
         test2();
+        System.out.println("###TESTE 3###");
+        test3();
+        System.out.println("###TESTE 4###");
+        test4();
+        
     }
 
 }
