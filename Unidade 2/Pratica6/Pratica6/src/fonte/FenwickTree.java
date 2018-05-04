@@ -51,8 +51,7 @@ public class FenwickTree {
         return s;
     }
 
-    
-    
+      
     int size() {
     	if(right==null){
             return leftsize+1; //Deve somar mais um para contabilizar o próprio nó mais a direita
@@ -63,10 +62,14 @@ public class FenwickTree {
 
     public void increment(int i, int delta) {
         value += delta; // Incrementa já na descida
-        if (leftsize > i && left!=null) {
-            left.increment(i, delta);
-        } else if(leftsize > i && right!=null){
-            right.increment(i - leftsize, delta);
+        if (leftsize > i) {
+            if (left != null) {
+                left.increment(i, delta);
+            }
+        } else {
+            if (right != null) {
+                right.increment(i - leftsize, delta);
+            }
         }
         
         /**Primeira versão do código (ERRADA):
@@ -90,6 +93,30 @@ public class FenwickTree {
         return new FenwickTree(n - m, allZeros(n - m), allZeros(m));
     }
 
+    public int prefixSum(int upto) {
+        if (leftsize > upto ) {
+            if (left != null) {
+                return left.prefixSum(upto);
+            } else{
+                return value;
+            }
+        } else {
+            if (right != null) {
+                return left.value + right.prefixSum(upto - leftsize);
+            } else {
+                if (upto == 0) {
+                    return 0;
+                } else {
+                    return value;
+                }
+            }
+        }
+    }
+
+    public int between(int lo, int hi){
+        return prefixSum(hi)-prefixSum(lo);
+    }
+    
     public static void test1() {
         System.out.println("Construcao de FenwickTree(3) : " + new FenwickTree(3));
         System.out.println("Construcao da arvore da figura : "
@@ -99,7 +126,6 @@ public class FenwickTree {
                   new FenwickTree(1, new FenwickTree(6), new FenwickTree(1)))));
     }
     
-
     public static void test2() {
         System.out.println("Construcao de allZeros(3) : " + FenwickTree.allZeros(3));
         System.out.println("Construcao de allZeros(4) : " + FenwickTree.allZeros(4));
@@ -145,6 +171,44 @@ public class FenwickTree {
         System.out.println("Resultado de increment(5, 1) : " + T);
     }
 
+    public static void test5() {
+        // teste de correcao
+        System.out.println("Verificacao de correcao da funcao...");
+        FenwickTree T = new FenwickTree(3, new FenwickTree(1, new FenwickTree(4),
+                new FenwickTree(1, new FenwickTree(2), new FenwickTree(5))),
+                new FenwickTree(1, new FenwickTree(3),
+                        new FenwickTree(1, new FenwickTree(6), new FenwickTree(1))));
+        System.out.println("Arvore this : " + T);
+        System.out.println("Soma das primeiras folhas : ");
+        for (int upto = 0; upto <= 6; upto++) {
+            System.out.println("prefixSum(" + upto + ") : " + T.prefixSum(upto));
+        }
+    }
+    
+     public static void test6() {
+        FenwickTree T = new FenwickTree(3, new FenwickTree(1, new FenwickTree(4),
+                new FenwickTree(1, new FenwickTree(2), new FenwickTree(5))),
+                new FenwickTree(1, new FenwickTree(3),
+                        new FenwickTree(1, new FenwickTree(6), new FenwickTree(1))));
+        System.out.println("Arvore this : " + T);
+        System.out.println("Soma das folhas entre lo e hi : ");
+        System.out.print(" ");
+        for (int lo = 0; lo <= 6; lo++) {
+            System.out.print("lo = " + lo + " ");
+        }
+        System.out.println();
+        for (int hi = 0; hi <= 6; hi++) {
+            System.out.print("hi = " + hi + " ");
+            for (int lo = 0; lo <= hi; lo++) {
+                System.out.print(T.between(lo, hi) + " ");
+                if (T.between(lo, hi) < 10) {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
+
+    }
     public static void main(String[] args) {
         System.out.println("###TESTE 1###");
         test1();
@@ -154,6 +218,10 @@ public class FenwickTree {
         test3();
         System.out.println("###TESTE 4###");
         test4();
+        System.out.println("###TESTE 5###");
+        test5();
+        System.out.println("###TESTE 6###");
+        test6();
         
     }
 
