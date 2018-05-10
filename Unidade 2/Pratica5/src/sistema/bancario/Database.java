@@ -27,8 +27,23 @@ public class Database {
         }
     }
     
-    Database(){
-        
+    public static Conta getConta(String[] res){
+        String nomeCliente="";
+        String saldo="";
+        String[] num = {"0","1","2","3","4","5","6","7","8","9"};
+        String palavra[] = new String[res.length];
+        for(int i=0; i<res.length; i++){
+            palavra[i] = getLetra(res[i]).getCaractere();  
+            for(int j=0; j<10; j++){
+                if(palavra[i].equals(num[j])){
+                    saldo+=palavra[i];
+                    break;
+                }
+                else if(j==9) nomeCliente+=palavra[i];
+            }
+        }
+        Conta conta = new Conta(nomeCliente, saldo);
+        return conta;
     }
 
     public static Letra getLetra(String md5) {
