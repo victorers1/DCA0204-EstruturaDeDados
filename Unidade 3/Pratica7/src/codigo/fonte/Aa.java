@@ -49,11 +49,10 @@ public class Aa {
     static Aa rodeDir(Aa n) {
         // Nomenclatura das variáveis segue a da imagem no PDF dado pelo professor
         Aa a0, a1, a2, m;
-
-        m = n.getEsq();
+        n.setCor(R);
+        m = n.getEsq(); m.setCor(N);
         a0 = n.getEsq().getEsq();
         a1 = n.getEsq().getDir();
-
         a2 = n.getDir();
 
         return new Aa(m.getValor(), m.getCor(),
@@ -65,8 +64,8 @@ public class Aa {
         Aa n, p, a0, a1, a2, a3;
         
         a0 = m.getEsq();
-        n = m.getDir(); n.setCor(N);
-        a1 = n.getEsq(); a1.setCor(N);
+        n = m.getDir(); //n.setCor(N);
+        a1 = n.getEsq(); //a1.setCor(N);
         p = n.getDir();
         a2 = p.getEsq();
         a3 = p.getDir();
@@ -78,13 +77,21 @@ public class Aa {
     
     static void inserir(Aa a, int valor){
         if(valor > a.getValor()){
-            if(a.getDir()!=null) inserir(a.getDir(), valor);
+            if(a.getDir()!=null) 
+                inserir(a.getDir(), valor);
+            else
+                a.setDir(new Aa(valor, R, null, null));
         } else if (valor < a.getValor()){
-            if(a.getEsq()!=null) inserir(a.getEsq(), valor);
+            if(a.getEsq()!=null) 
+                inserir(a.getEsq(), valor);
+            else
+                a.setEsq(new Aa(valor, R, null, null));
         }
         a = rodeDir(a);
         a = rodeEsq(a);
     }
+    
+    
     
     static void test1(){
         Aa a = new Aa (3, N,
@@ -106,7 +113,9 @@ public class Aa {
                         new Aa(1, N, null, null),
                         new Aa(3, N, null, null)),
                 new Aa(5, N, null, null));
-        Fenetre f = new Fenetre(a, "Teste2");
+        Fenetre f = new Fenetre(a, "Teste2 antes");
+        a = rodeDir(a);
+        f = new Fenetre(a, "Teste2 depois");
     }
 
     static void test3() {
@@ -118,7 +127,9 @@ public class Aa {
                                 new Aa(5, N, null, null),
                                 new Aa(7, N, null, null))));
 
-        Fenetre f = new Fenetre(a, "Teste3");
+        Fenetre f = new Fenetre(a, "Teste3 antes");
+        a = rodeEsq(a);
+        f = new Fenetre(a, "Teste3 depois");
     }
     
     public int getValor() {
@@ -152,11 +163,10 @@ public class Aa {
         this.dir = dir;
     }
     
-   
     
     public static void main(String[] args) {
         test1();
         test2();
-        test3();
+        //test3();
     }
 }
