@@ -42,15 +42,17 @@ public class Aa {
         if(a.dir != null)
             s += infixe(a.dir);
         
-        
         return s;
     }
     
     static Aa rodeDir(Aa n) {
+        if(n.getEsq()==null || n.getEsq().getCor()!=R){
+            return n;
+        }
+        
         // Nomenclatura das variáveis segue a da imagem no PDF dado pelo professor
         Aa a0, a1, a2, m;
-        n.setCor(R);
-        m = n.getEsq(); m.setCor(N);
+        m = n.getEsq();
         a0 = n.getEsq().getEsq();
         a1 = n.getEsq().getDir();
         a2 = n.getDir();
@@ -61,11 +63,14 @@ public class Aa {
     }
 
     static Aa rodeEsq(Aa m){
-        Aa n, p, a0, a1, a2, a3;
+        if (m.getDir()== null || m.getDir().getDir() == null || m.getDir().getCor() != R || m.getDir().getDir().getCor() != R) {
+            return m;
+        }
         
+        Aa n, p, a0, a1, a2, a3;
         a0 = m.getEsq();
-        n = m.getDir(); //n.setCor(N);
-        a1 = n.getEsq(); //a1.setCor(N);
+        n = m.getDir(); 
+        a1 = n.getEsq();
         p = n.getDir();
         a2 = p.getEsq();
         a3 = p.getDir();
@@ -75,23 +80,56 @@ public class Aa {
                 new Aa(p.getValor(),p.getCor(),a2,a3));
     }
     
-    static void inserir(Aa a, int valor){
-        if(valor > a.getValor()){
-            if(a.getDir()!=null) 
-                inserir(a.getDir(), valor);
-            else
-                a.setDir(new Aa(valor, R, null, null));
-        } else if (valor < a.getValor()){
-            if(a.getEsq()!=null) 
-                inserir(a.getEsq(), valor);
-            else
-                a.setEsq(new Aa(valor, R, null, null));
+    static Aa insere(Aa a, int valor){
+        if(a==null){
+            a = new Aa(valor, R, null, null);
+            return a;
+        } else {
+            if(valor < a.getValor()){
+                a.setEsq(insere(a.getEsq(), valor));
+                a = rodeDir(a);
+                a = rodeEsq(a);
+                return a;
+            } else{
+                a.setDir(insere(a.getDir(), valor));
+                a = rodeDir(a);
+                a = rodeEsq(a);
+                return a;
+            }
         }
-        a = rodeDir(a);
-        a = rodeEsq(a);
     }
     
+    static int nivel(Aa a){
+        if(a==null){
+            return 0;
+        } else if(a.getCor()==R){
+            return 0 + nivel(a.getEsq());
+        } else{
+            return 1 + nivel(a.getEsq());
+        }
+    }
     
+    static Aa inserirECorrigeRaiz(Aa a, int i){
+        a = insere(a, i);
+        if(a.getCor() == R){
+            a.setCor(N);
+        }
+        return a;
+    }
+    
+    static boolean testSubArvoreAa(Aa a, int n, boolean raizPodeSerVermelha){
+        if(a!=null){
+            if(a.getCor()==R && raizPodeSerVermelha==false){
+                return false;
+            } else if(a.getCor()==R){
+                return testSubArvoreAa(a.getDir(), n, false) && testSubArvoreAa(a.getDir(), n, false);
+            } else{
+                return testSubArvoreAa(a.getDir(), n-1, true) && testSubArvoreAa(a.getDir(), n-1, true);
+            }
+        } else{
+            return a==null && n==0;
+        }
+    }
     
     static void test1(){
         Aa a = new Aa (3, N,
@@ -132,6 +170,21 @@ public class Aa {
         f = new Fenetre(a, "Teste3 depois");
     }
     
+    static void test4(){
+        Aa a = new Aa(2, N,
+                new Aa(1, N, null, null),
+                new Aa(4, R,
+                        new Aa(3, N, null, null),
+                        new Aa(6, R,
+                                new Aa(5, N, null, null),
+                                new Aa(7, N, null, null))));
+        if(testSubArvoreAa(a, nivel(a), false)){
+            System.out.println("É AA");
+        }else{
+            System.out.println("Não é AA");
+        }
+    }
+    
     public int getValor() {
         return valor;
     }
@@ -167,6 +220,7 @@ public class Aa {
     public static void main(String[] args) {
         test1();
         test2();
-        //test3();
+        test3();
+        test4();
     }
 }
